@@ -78,14 +78,17 @@ const gameOverSound = new Audio('game-over.mp3');
 
 backgroundMusic.loop = true;
 
+const screenWidth = window.innerWidth;
+if (screenWidth < 768) {
+  surfboardSpeed = 0.3;
+  surfboardSideSpeed = 0.3;
+}
+
 window.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft' || event.key === 'a') keys.left = true;
   if (event.key === 'ArrowRight' || event.key === 'd') keys.right = true;
   if (event.key === ' ' && !gameStarted) {
-    gameStarted = true;
-    startSound.play();
-    backgroundMusic.play();
-    document.getElementById('start-screen').style.display = 'none';
+    startGame();
   }
 });
 
@@ -93,6 +96,41 @@ window.addEventListener('keyup', (event) => {
   if (event.key === 'ArrowLeft' || event.key === 'a') keys.left = false;
   if (event.key === 'ArrowRight' || event.key === 'd') keys.right = false;
 });
+
+let touchStartX = null;
+
+window.addEventListener('touchstart', (event) => {
+  if (!gameStarted) startGame();
+  touchStartX = event.touches[0].clientX;
+});
+
+window.addEventListener('touchmove', (event) => {
+  if (touchStartX !== null) {
+    const touchEndX = event.touches[0].clientX;
+    const touchDeltaX = touchEndX - touchStartX;
+
+    if (touchDeltaX > 30) {
+      keys.left = false;
+      keys.right = true;
+    } else if (touchDeltaX < -30) {
+      keys.right = false;
+      keys.left = true;
+    }
+  }
+});
+
+window.addEventListener('touchend', () => {
+  keys.left = false;
+  keys.right = false;
+  touchStartX = null;
+});
+
+function startGame() {
+  gameStarted = true;
+  startSound.play();
+  backgroundMusic.play();
+  document.getElementById('start-screen').style.display = 'none';
+}
 
 function animate() {
   requestAnimationFrame(animate);
@@ -131,12 +169,6 @@ function animate() {
     }
     if (segment.position.x < surfboard.position.x - oceanWidth / 2) {
       segment.position.x += oceanWidth * numOceanSegmentsX;
-    }
-    if (segment.position.z > surfboard.position.z + oceanLength / 2) {
-      segment.position.z -= oceanLength * numOceanSegmentsZ;
-    }
-    if (segment.position.x > surfboard.position.x + oceanWidth / 2) {
-      segment.position.x -= oceanWidth * numOceanSegmentsX;
     }
   });
 
