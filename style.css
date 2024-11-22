@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  background-color: #87CEEB;
+}
+
+canvas {
+  display: block;
+}
+
+#score {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2vw;
+  color: white;
+  z-index: 10;
+}
+
+#start-screen, #game-over-screen {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 5vw;
+  color: white;
+  z-index: 10;
+  text-align: center;
+}
+
+#restart-button {
+  margin-top: 20px;
+  font-size: 2vw;
+  background-color: #1e90ff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#restart-button:hover {
+  background-color: #007acc;
+}
