@@ -25,8 +25,7 @@ You can play the game directly in your browser by clicking the link below:
 - **Restart**: After the game ends, click **Restart** to play again.
 
 ## Notes
-- The game has responsive controls and can be played both on desktop and mobile devices.
-- The game dynamically loads 3D models, so ensure all models are available before starting.
+- The game loads 3d models by own but if you see no obstacles, reload.
 
 ## What is Next
 - **Multiplayer**: Implement multiplayer mode where players can compete on the same surfing path.
